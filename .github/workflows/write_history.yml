@@ -1,6 +1,5 @@
 name: Update history
 
-
 on:
   pull_request:
     branches:
