@@ -24,3 +24,5 @@ jobs:
           git add history.csv
           git commit -m "Update history"
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
