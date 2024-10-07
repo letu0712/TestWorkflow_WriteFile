@@ -17,12 +17,18 @@ jobs:
           echo "${{ github.actor }},user1@gmail.com,${{ github.event.pull_request.created_at }}" >> history.csv
         
         
-      - name: Commit and push changes
-        run: |
-          git config --local user.name "github-actions"
-          git config --local user.email "github-actions@github.com"
-          git add history.csv
-          git commit -m "Update history"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Overwrite file
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: history.csv
+          write-mode: overwrite
+          contents: |
+            console.log('some contents')
+            
+      - name: Commit & Push
+        uses: Andro999b/push@v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true
+          message: 'Overwritten by Github Actions - ${date}'
