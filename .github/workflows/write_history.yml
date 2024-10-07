@@ -15,20 +15,16 @@ jobs:
       - name: Write to history
         run: |
           echo "${{ github.actor }},user1@gmail.com,${{ github.event.pull_request.created_at }}" >> history.csv
-          echo "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Commit files
         id: commit
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
-          git add --all
-          if [-z "$(git status --porcelain)"]; then
-            echo "::set-output name=push::false"
-          else
-            git commit -m "Add changes" -a
-            echo "::set-output name=push::true"
-          fi
+          git add .
+          git commit -m "Add changes" 
+        
+        
         shell: bash
       - name: Push changes
         if: steps.commit.outputs.push == 'true'
