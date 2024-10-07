@@ -15,14 +15,6 @@ jobs:
       - name: Write to history
         run: |
           echo "${{ github.actor }},user1@gmail.com,${{ github.event.pull_request.created_at }}" >> history.csv
-
-      - name: Overwrite file
-        uses: "DamianReeves/write-file-action@master"
-        with:
-          path: history.csv
-          write-mode: overwrite
-          contents: |
-            console.log('some contents')
             
       - name: Commit & Push
         uses: Andro999b/push@v1.3
