@@ -16,18 +16,12 @@ jobs:
         run: |
           echo "${{ github.actor }},user1@gmail.com,${{ github.event.pull_request.created_at }}" >> history.csv
 
-      - name: Commit files
-        id: commit
+      - name: Commit and push changes
         run: |
-          git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
           git add .
-          git commit -m "Add changes" 
-        
-        
-        shell: bash
-      - name: Push changes
-        if: steps.commit.outputs.push == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git commit -m "Update contributions CSV"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
