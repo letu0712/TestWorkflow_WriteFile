@@ -16,6 +16,7 @@ jobs:
           run: |
             echo "${{ github.actor }},user1@gmail.com,${{ github.event.pull_request.created_at }}" >> history.csv
           
+          
         - name: Commit and push changes
           run: |
             git config --local user.name "github-actions"
@@ -23,4 +24,3 @@ jobs:
             git add history.csv
             git commit -m "Update history"
             git push
-            
